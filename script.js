@@ -47,6 +47,8 @@ resetButton.addEventListener("click", function() {
   colors = generateRandomColor(numOfSquares);
   pickedColor = colorPicked();
   colorDisplay.textContent = pickedColor;
+  this.textContent = "New Colors";
+  message.textContent = "";
   for(let i = 0; i < colors.length; i++) {
     squares[i].style.backgroundColor = colors[i];
   } h1.style.backgroundColor = "steelblue";
