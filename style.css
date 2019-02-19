@@ -37,8 +37,6 @@ h1{
   background-color: #fff;
   text-align: center;
   height: 30px;
-  /* padding-top: 7px;
-  padding-bottom: 7px; */
 }
 #colorDisplay {
   font-size: 200%;
@@ -52,7 +50,7 @@ button {
   background-color: #fff;
   text-transform: uppercase;
   height: 100%;
-  font-weight: 700;
+  font-weight: 800;
   color: steelblue;
   letter-spacing: 1px;
   transition: all, 0.4s;
