@@ -1,25 +1,51 @@
 "use strict"
 
-let colors = generateRandomColor(6);
+let colors = [];
 let numOfSquares = 6;
+let pickedColor;
 let squares = document.querySelectorAll(".square");
-let pickedColor = colorPicked();
 let message = document.querySelector("#message");
 let colorDisplay = document.querySelector("#colorDisplay");
 let h1 = document.querySelector("h1");
 let resetButton = document.querySelector("#reset");
 let modeButtons = document.querySelectorAll(".mode");
 
-colorDisplay.textContent = pickedColor;
+init();
 
-for(let i=0; i < modeButtons.length; i++) {
-  modeButtons[i].addEventListener("click", function() {
-    modeButtons[0].classList.remove("selected");
-    modeButtons[1].classList.remove("selected");
-    this.classList.add("selected");
-    this.textContent === "Easy" ? numOfSquares = 3: numOfSquares = 6;
-    reset();  
-  });
+function init() {
+  setupModeButtons();
+  setupSquares();
+  reset();
+}
+
+function setupModeButtons() {
+  for(let i=0; i < modeButtons.length; i++) {
+    modeButtons[i].addEventListener("click", function() {
+      modeButtons[0].classList.remove("selected");
+      modeButtons[1].classList.remove("selected");
+      this.classList.add("selected");
+      this.textContent === "Easy" ? numOfSquares = 3: numOfSquares = 6;
+      reset();  
+    });
+  }
+}
+
+function setupSquares() {
+  for(let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener("click", function(){
+      let clickedColor = this.style.backgroundColor;
+      // compare clicked color to picked color
+      if(clickedColor === pickedColor) {
+        message.textContent = "Correct!";
+        h1.style.backgroundColor = clickedColor;
+        resetButton.textContent = "Play Again?";
+        changeColors(clickedColor);
+      } else {
+        this.style.backgroundColor = "#232323";
+        message.textContent = "Try Again";
+      }
+    });
+  }
 }
 
 function reset() {
@@ -42,27 +68,6 @@ resetButton.addEventListener("click", function() {
   reset();
 });
 
-// loop through the colors array and assign each color to our square class
-for(let i = 0; i < colors.length; i++) {
-  //select colors
-  squares[i].style.backgroundColor = colors[i];
-  //select clicked colors
-  squares[i].addEventListener("click", function(){
-    let clickedColor = this.style.backgroundColor;
-
-    // compare clicked color to picked color
-    if(clickedColor === pickedColor) {
-      message.textContent = "Correct!";
-      h1.style.backgroundColor = clickedColor;
-      resetButton.textContent = "Play Again?";
-      changeColors(clickedColor);
-      
-    } else {
-      this.style.backgroundColor = "#232323";
-      message.textContent = "Try Again";
-    }
-  });
-}
 // this function when called, changes all the colors in the square
 //...when the correct color is guessed.
 function changeColors(color) {
@@ -91,5 +96,3 @@ function randomColor() {
   let b = Math.floor(Math.random() * 256);
   return "rgb("+ r + ", "+ g + ", "+ b + ")";
 }
-
-//code looks pretty dirty... needs some refactoring!!!!
